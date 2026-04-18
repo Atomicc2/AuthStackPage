@@ -4,7 +4,7 @@ import { ɵEmptyOutletComponent } from "@angular/router";
 @Component({
   selector: 'app-default-login-layout',
   standalone: true,
-  imports: [ɵEmptyOutletComponent],
+  imports: [],
   templateUrl: './default-login-layout.component.html',
   styleUrl: './default-login-layout.component.scss'
 })

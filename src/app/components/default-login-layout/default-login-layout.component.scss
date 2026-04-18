@@ -15,6 +15,7 @@ main {
     }
 
     .main-section {
+        font-weight: bold;
         gap: 50px;
         flex-grow: 1;
         background-color: $gray-bg;
@@ -22,8 +23,8 @@ main {
     }
 
     .main-image {
-        width: 350px;
-        max-width: 100%;
+        width: 400px;
+        min-width: 100px;
     }
 
     .form-section {
