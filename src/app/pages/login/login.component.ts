@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { ToastrService } from 'ngx-toastr';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +15,19 @@ import { Route, Router } from '@angular/router';
     ReactiveFormsModule,
     PrimaryInputComponent
   ],
+  providers: [
+    LoginService
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-
+  toastr = inject(ToastrService);
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -29,7 +36,10 @@ export class LoginComponent {
    }
 
   submit() {
-    console.log(this.loginForm.value);
+    this.loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+      next: () => this.toastr.success("Login successful"),
+      error: () => this.toastr.error("Login failed")
+    })
   }
 
   navigate() {
